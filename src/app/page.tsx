@@ -107,12 +107,12 @@ const HomePage = () => {
             <Button
               variant="contained"
               color="primary"
-              onClick={() => router.push('/login')}
+              onClick={() => router.push('/auth/login')}
               sx={{ marginRight: '8px' }}
             >
               Login
             </Button>
-            <Button variant="outlined" color="primary" onClick={() => router.push('/signup')}>
+            <Button variant="outlined" color="primary" onClick={() => router.push('/auth/signup')}>
               Signup
             </Button>
           </Box>
