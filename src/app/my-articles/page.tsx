@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { getMyArticles } from '../../api/articlesApi'; // Make sure this API function exists
-import { Container, Typography, Card, CardContent, CircularProgress, Button, Box } from '@mui/material';
+import { Container, Typography, Card, CardContent, CircularProgress, Box } from '@mui/material';
 
 interface Article {
   id: number;
@@ -24,7 +24,7 @@ const MyArticlesPage = () => {
       try {
         const data = await getMyArticles(); // Fetch only the logged-in user's articles
         setArticles(data);
-      } catch (err) {
+      } catch {
         setError('Failed to load your articles');
       } finally {
         setLoading(false);

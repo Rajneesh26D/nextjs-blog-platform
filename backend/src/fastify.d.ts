@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { User } from 'jsonwebtoken'; // Assuming you will use the payload from JWT
 import { FastifyRequest } from 'fastify'; // Import Fastify types
 
