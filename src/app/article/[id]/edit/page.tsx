@@ -12,7 +12,7 @@ interface DecodedToken {
 }
 
 const EditArticlePage = () => {
-  const { id } = useParams(); // Get the article ID from the URL
+  const { id } = useParams(); 
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [author, setAuthor] = useState('');
@@ -43,7 +43,7 @@ const EditArticlePage = () => {
     e.preventDefault();
     try {
       await updateArticle(Number(id), { title, content, author });
-      router.push('/'); // Redirect to My Articles after editing
+      router.push('/');
     } catch (err) {
       console.error('Failed to update article', err);
     }
@@ -78,7 +78,7 @@ const EditArticlePage = () => {
           value={author}
           fullWidth
           margin="normal"
-          disabled // Disable the author field since it's auto-filled
+          disabled 
         />
         <Button type="submit" variant="contained" color="primary" sx={{ marginTop: '20px' }}>
           Update Article

@@ -79,14 +79,13 @@ const ArticleDetailPage = ({ params }: { params: { id: string } }) => {
     <Container sx={{ marginTop: '40px' }}>
       {article && (
         <>
-          {/* Title Box with Author and Date */}
           <Box
             sx={{
-              backgroundColor: '#424242', // Dark grey
+              backgroundColor: '#424242', 
               padding: '16px',
               marginBottom: '16px',
               borderRadius: '8px',
-              textAlign: 'center', // Center the title
+              textAlign: 'center',
             }}
           >
             {/* Centered Title */}
@@ -98,10 +97,10 @@ const ArticleDetailPage = ({ params }: { params: { id: string } }) => {
             <Box
               sx={{
                 display: 'flex',
-                justifyContent: 'flex-end', // Align author and date to the right
-                flexDirection: 'column', // Stack author and date vertically
+                justifyContent: 'flex-end', 
+                flexDirection: 'column', 
                 alignItems: 'flex-end',
-                color: '#ffffff', // White text for author and date
+                color: '#ffffff', 
               }}
             >
               <Typography variant="body1" sx={{ fontStyle: 'italic' }}>
@@ -116,7 +115,7 @@ const ArticleDetailPage = ({ params }: { params: { id: string } }) => {
           {/* Content Box */}
           <Box
             sx={{
-              backgroundColor: '#f5f5f5', // Light grey
+              backgroundColor: '#f5f5f5', 
               padding: '16px',
               borderRadius: '8px',
             }}
