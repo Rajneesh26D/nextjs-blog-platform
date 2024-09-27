@@ -5,6 +5,7 @@ import pool from './db';
 import cors from '@fastify/cors';
 import bcrypt from 'bcrypt'; // For hashing passwords
 import jwt, { JwtPayload } from 'jsonwebtoken'; // For creating JWT tokens
+import { VercelRequest, VercelResponse } from "@vercel/node"
 
 dotenv.config();
 
@@ -32,7 +33,7 @@ server.addContentTypeParser('application/json', { parseAs: 'string' }, (req, bod
 
 
 // Route to get all articles
-server.get('/articles', async (request, reply) => {
+server.get('/api/articles', async (request, reply) => {
   try {
     const { rows } = await pool.query('SELECT * FROM articles ORDER BY created_at DESC');
     return rows;
@@ -42,7 +43,7 @@ server.get('/articles', async (request, reply) => {
 });
 
 // Route to retrieve a single article by its id
-server.get('/articles/:id', async (request, reply) => {
+server.get('/api/articles/:id', async (request, reply) => {
   const { id } = request.params as { id: string }; // Get the article ID from the route parameter
 
   try {
@@ -59,7 +60,7 @@ server.get('/articles/:id', async (request, reply) => {
 });
 
 // PUT route to update an article by its id
-server.put('/articles/:id', async (request, reply) => {
+server.put('/api/articles/:id', async (request, reply) => {
   const { id } = request.params as { id: string };
   const { title, content, author } = request.body as {
     title?: string;
@@ -89,7 +90,7 @@ server.put('/articles/:id', async (request, reply) => {
 });
 
 // Route to insert a new article
-server.post('/articles', async (request, reply) => {
+server.post('/api/articles', async (request, reply) => {
   const { title, content, author } = request.body as {
     title: string;
     content: string;
@@ -108,7 +109,7 @@ server.post('/articles', async (request, reply) => {
 });
 
 // DELETE route to delete an article by its id
-server.delete('/articles/:id', async (request, reply) => {
+server.delete('/api/articles/:id', async (request, reply) => {
   const { id } = request.params as { id: string };
 
   try {
@@ -145,7 +146,7 @@ server.delete('/articles/:id', async (request, reply) => {
 // ------------------- USER AUTHENTICATION ROUTES -------------------
 
 // Route for user signup
-server.post('/signup', async (request, reply) => {
+server.post('/api/signup', async (request, reply) => {
   const { username, password } = request.body as { username: string; password: string };
 
   // Check if the user already exists
@@ -170,7 +171,7 @@ server.post('/signup', async (request, reply) => {
 });
 
 // Route for user login
-server.post('/login', async (request, reply) => {
+server.post('/api/login', async (request, reply) => {
   const { username, password } = request.body as { username: string; password: string };
 
   // Find the user by username
@@ -225,13 +226,20 @@ server.post('/login', async (request, reply) => {
 //   }
 // });
 
-const start = async () => {
-  try {
-    await server.listen({ port });
-    console.log('Backend server is running on http://localhost:4000');
-  } catch (err) {
-    server.log.error(err);
-    process.exit(1);
-  }
+// const start = async () => {
+//   try {
+//     await server.listen({ port });
+//     console.log('Backend server is running on http://localhost:4000');
+//   } catch (err) {
+//     server.log.error(err);
+//     process.exit(1);
+//   }
+// };
+// start();
+
+const ServerFunc = async (req: VercelRequest, res: VercelResponse) => {
+    await server.ready();
+    server.server.emit('request', req, res);
 };
-start();
+
+export default ServerFunc;

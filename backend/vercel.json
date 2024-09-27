@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/index.ts",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "api/index.ts"
+    }
+  ],
+  "env": {
+    "POSTGRES_URL": "postgres://default:5yDHwBeuZd6l@ep-dawn-flower-a1gxgp5f-pooler.ap-southeast-1.aws.neon.tech:5432/verceldb"
+  }
+}
